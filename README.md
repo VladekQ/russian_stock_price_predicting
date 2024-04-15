@@ -16,7 +16,7 @@ You can use the code from `Example.ipynb` file to try it with yourself
 Function `get_stocks_data` takes a few arguments:
   - start_time - stating data in string format
   - end_time - ending data in string format
-  - symbols - list of companies whose stocks you are interested in
+  - symbols - list of companies whose stocks you are interested in. You can see some symbols here: https://www.tradingview.com/markets/stocks-russia/market-movers-large-cap/
 
 **Example:**
 ```python
@@ -48,9 +48,18 @@ Function `predict_future_stock_price` takes a few arguments:
   - preprocessed_datasets - preprocessed datasets obtained in the "Preprocessing Data" step
   - future_days - number of days for which you need to predict the price
   - symbol - name of the company for which the stock price is predicted
+  - plot_ - argument responsible for displaying the graph after prediction, True by default
 
 ```python
 preds = snv.predict_future_stock_price(preprocessed_datasets, future_days=10, symbol='SBER')
 ```
 
 The function return `pd.Series` like:
+
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/da9ac18c-16a3-4e0b-87e8-6b1b6194137f)
+
+And a plot like:
+
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/3c4da955-a2c1-4794-86fb-eea292555d44)
+
+
