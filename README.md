@@ -12,6 +12,11 @@ Overall, the "Russian Stock Price Prediction with Neural Networks" project is an
 # How it works
 You can use the code from `Example.ipynb` file to try it with yourself
 
+## Import Package
+```python
+import stocks_nn_vap as snv
+```
+
 ## Getting Data
 Function `get_stocks_data` takes a few arguments:
   - start_time - stating data in string format
@@ -20,17 +25,28 @@ Function `get_stocks_data` takes a few arguments:
 
 **Example:**
 ```python
-import stocks_nn_vap as snv
-datasets = snv.get_stocks_data(start_time='2016-01-01', end_time='2024-04-02', symbols=['GAZP'])
+symbols = ['ROSN', 'GAZP']
+datasets = snv.get_stocks_data(start_date='2016-01-01', end_date='2024-04-02', symbols=['GAZP'])
 ```
+
+**Output:** 
+The function returns a dictionary with company keys and data on stock prices for the specified period
+
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/454024f3-6d7a-46b8-a753-01cdcb3e09b5)
 
 ## Preprocessing Data
 Function `preprocess_stocks_data` takes one argument:
-  - datasets - вictionary with data sets obtained in the previous step
+  - datasets - dictionary with data sets obtained in the previous step
 
 ```python
 preprocessed_datasets = snv.preprocess_stocks_data(datasets)
 ```
+
+**Output:** 
+The function returns a dictionary with processed data ready to enter the model
+
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/6ee08a6f-4e85-41fb-ad2e-c59eeb401a7b)
+
 
 ## Creating and Fitting models
 Function `build_fit_stocks_model` takes a few arguments:
@@ -38,8 +54,13 @@ Function `build_fit_stocks_model` takes a few arguments:
   - symbols - list of companies whose stocks you are interested in
 
 ```python
-snv.build_fit_stocks_model(preprocessed_datasets, symbols=['GAZP'])
+metrics = snv.build_fit_stocks_model(preprocessed_datasets, symbols=symbols)
 ```
+
+**Output:** 
+The function creates and trains models, and also returns a dataframe with model metrics
+
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/d03bcc67-1596-46ea-88dd-9d368f3fc0b4)
 
 After executing the function, a “models__” folder will be created in the project folder, in which the trained models for each company will be saved
 
@@ -51,15 +72,28 @@ Function `predict_future_stock_price` takes a few arguments:
   - plot_ - argument responsible for displaying the graph after prediction, True by default
 
 ```python
-preds = snv.predict_future_stock_price(preprocessed_datasets, future_days=10, symbol='SBER')
+preds = snv.predict_future_stock_price(preprocessed_datasets, future_days=10, symbol='ROSN')
 ```
 
-The function return `pd.Series` like:
+The function return `pd.DataFrame` with perdictions of every model and mean predictions like:
 
-![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/da9ac18c-16a3-4e0b-87e8-6b1b6194137f)
-
-And a plot like:
-
-![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/3c4da955-a2c1-4794-86fb-eea292555d44)
+![image](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/7ff91d26-2271-46a3-8cd4-bee9e5359234)
 
 
+And a plots like:
+
+Predictions of Medium Model:
+
+![Plot_1](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/9a9d020a-d79c-40e8-b509-cd32cb12aa12)
+
+Predictions of Small Model:
+
+![Plot_2](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/0c643afd-200e-47d8-869a-9e39cfa44e32)
+
+Predictions of Large Model:
+
+![Plot_3](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/dcfecbfa-d7d7-4dd7-8946-d2f040414b41)
+
+And Mean Predictions of all models:
+
+![Plot_4](https://github.com/VladekQ/russian_stock_price_predicting/assets/72941961/5480a1c3-605b-4ca9-bfa6-c43f66f499ef)
